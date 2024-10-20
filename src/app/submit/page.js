@@ -12,9 +12,11 @@ export default function Submit() {
     const author = formData.get("author");
     const review = formData.get("review");
     const rating = formData.get("rating");
+    const image = formData.get("image");
+
     await db.query(
-      `INSERT INTO reviews (users_name, book_name, author, review, rating) VALUES ($1, $2, $3, $4, $5)`,
-      [users_name, book_name, author, review, rating]
+      `INSERT INTO reviews (users_name, book_name, author, review, rating, image) VALUES ($1, $2, $3, $4, $5, $6)`,
+      [users_name, book_name, author, review, rating, image]
     );
     revalidatePath("/reviews");
     redirect("/reviews");
@@ -65,6 +67,8 @@ export default function Submit() {
           placeholder="Rating"
           required
         />
+        <label htmlFor="image">Image URL:</label>
+        <input type="text" name="image" id="image" placeholder="Image URL" />
         <button type="submit">Submit review</button>
       </form>
     </>

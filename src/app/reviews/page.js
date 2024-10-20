@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { db } from "@/utils/dbConnection";
 
 // We need some navigation
@@ -15,11 +16,7 @@ export default async function ReviewsPage() {
       {/* Here I need a list of my posts */}
       {wrangledReviews.map((review) => (
         <div key={review.id}>
-          <h1>{review.book_name}</h1>
-          <h2>written by: {review.author}</h2>
-          <h3>reviewed by: {review.users_name}</h3>
-          <p>{review.review}</p>
-          <p>{review.rating}</p>
+          <Link href={`/reviews/${review.id}`}>{review.book_name}</Link>
         </div>
       ))}
     </>
