@@ -3,6 +3,12 @@ import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 // Some navigation here
 //!Remember the metadata
+export function generateMetadata() {
+  return {
+    title: `Submit`,
+    description: `Read a good book? Submit it here, lets talk about it!`,
+  };
+}
 
 export default function Submit() {
   async function handleSubmitPost(formData) {
@@ -24,9 +30,17 @@ export default function Submit() {
   // Here I need to handle the submit of the posts form
   return (
     <>
-      <h1>A form to add a new book review</h1>
+      <div className="bg-purple-300 p-2 text-white">
+        <h1 className="text-3xl flex flex-col items-center">Submit</h1>
+        <p className=" flex flex-col items-center">
+          Read a great book? Let us know all about it here and spread the word!
+        </p>
+      </div>
       {/* Here I need a form to collect data from the user */}
-      <form action={handleSubmitPost} className="flex flex-col items-center">
+      <form
+        action={handleSubmitPost}
+        className="flex flex-col items-center p-4 justify-evenly h-2/5"
+      >
         <label htmlFor="users_name">Name:</label>
         <input
           type="text"
@@ -64,7 +78,8 @@ export default function Submit() {
           type="number"
           name="rating"
           id="rating"
-          placeholder="Rating"
+          min={1}
+          max={10}
           required
         />
         <label htmlFor="image">Image URL:</label>

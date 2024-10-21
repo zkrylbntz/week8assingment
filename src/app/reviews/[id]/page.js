@@ -3,6 +3,21 @@ import Image from "next/image";
 import { db } from "@/utils/dbConnection";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
+import reviewStyles from "@/app/reviews/[id]/review.module.css";
+
+export async function generateMetadata({ params }) {
+  const reviews = await db.query(
+    `SELECT * FROM reviews WHERE id = ${params.id}`
+  );
+  const wrangledReviews = reviews;
+  // //   const result = await fetch(`https://api.vercel.app/pokemon/${params.id}`);
+  // const review = await result.json();
+
+  return {
+    title: `${reviews.book_name} by ${reviews.author}`,
+    description: `This is a book review for ${reviews.book_name} written by ${reviews.author} I hope it inspires you.`,
+  };
+}
 
 // We need some navigation
 // We need to use params to render data dynamically
@@ -39,20 +54,25 @@ export default async function IdPage({ params }) {
 
   return (
     <>
-      <h1>Review</h1>
       {/* Here I need to display an individual post and relevant data */}
       {/* Here I will display a form with inputs that are connected to the comments table columns in my db */}
       {wrangledReviews.map((review) => (
         <div key={review.id}>
-          <h1>{review.book_name}</h1>
-          <h2>written by: {review.author}</h2>
+          <h1 className="text-4xl">{review.book_name}</h1>
+          <h2 className="text-2xl">written by: {review.author}</h2>
           <h3>reviewed by: {review.users_name}</h3>
-          <p>{review.review}</p>
-          <p>{review.rating}</p>
-          <Image src={review.image} alt="" width={200} height={300} />
+          <div
+            id="review-container"
+            className="flex flex-row w-1/3 items-center m-4"
+          >
+            <p>{review.review}</p>
+
+            <Image src={review.image} alt="" width={200} height={300} />
+          </div>
+          <p className="text-2xl">Rating: {review.rating}</p>
         </div>
       ))}
-      <h1>A form to add a comment</h1>
+      <h1>Add a comment</h1>
       {/* Here I need a form to collect data from the user */}
       <form action={handleSubmitComment} className="flex flex-col items-center">
         <label htmlFor="users_name">Name:</label>
@@ -76,8 +96,10 @@ export default async function IdPage({ params }) {
           type="number"
           name="rating"
           id="rating"
-          placeholder="Rating"
           required
+          min={1}
+          max={10}
+          width={200}
         />
         <button type="submit">Submit comment</button>
       </form>
