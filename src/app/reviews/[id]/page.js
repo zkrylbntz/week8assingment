@@ -3,7 +3,7 @@ import Image from "next/image";
 import { db } from "@/utils/dbConnection";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
-import reviewStyles from "@/app/reviews/[id]/review.module.css";
+import reviewStyles from "@/app/reviews/[id]/reviews.module.css";
 
 export async function generateMetadata({ params }) {
   const reviews = await db.query(
@@ -62,12 +62,18 @@ export default async function IdPage({ params }) {
           <h2 className="text-2xl">written by: {review.author}</h2>
           <h3>reviewed by: {review.users_name}</h3>
           <div
-            id="review-container"
+            id="review_container"
             className="flex flex-row w-1/3 items-center m-4"
           >
             <p>{review.review}</p>
 
-            <Image src={review.image} alt="" width={200} height={300} />
+            <Image
+              className="hover:scale-110"
+              src={review.image}
+              alt=""
+              width={200}
+              height={300}
+            />
           </div>
           <p className="text-2xl">Rating: {review.rating}</p>
         </div>
