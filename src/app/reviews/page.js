@@ -13,7 +13,7 @@ export function generateMetadata() {
 }
 
 export default async function ReviewsPage({ searchParams }) {
-  const reviews = await db.query(`SELECT * FROM reviews`);
+  const reviews = await db.query(`SELECT * FROM reviews8`);
   const wrangledReviews = reviews.rows;
   // Here I need to get the posts from the db
   if (searchParams.sort === "desc") {

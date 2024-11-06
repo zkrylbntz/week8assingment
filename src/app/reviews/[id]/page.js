@@ -35,18 +35,18 @@ export default async function IdPage({ params }) {
     const users_name = formData.get("users_name");
     const comment = formData.get("comment");
     const rating = formData.get("rating");
-    const reviews_id = params.id;
+    const reviews8_id = params.id;
 
     await db.query(
-      `INSERT INTO comments8(users_name, comment, rating, reviews_id) VALUES ($1, $2, $3, $4)`,
-      [users_name, comment, rating, reviews_id]
+      `INSERT INTO comments8(users_name, comment, rating, reviews8_id) VALUES ($1, $2, $3, $4)`,
+      [users_name, comment, rating, reviews8_id]
     );
     revalidatePath(`{/reviews/${params.id}`);
     // redirect(`{/reviews/${params.id}`);
   }
 
   const comments = await db.query(
-    `SELECT * FROM comments8 WHERE reviews_id = ${params.id}`
+    `SELECT * FROM comments8 WHERE reviews8_id = ${params.id}`
   );
 
   const wrangledComments = comments.rows;
