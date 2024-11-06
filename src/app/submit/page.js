@@ -21,7 +21,7 @@ export default function Submit() {
     const image = formData.get("image");
 
     await db.query(
-      `INSERT INTO reviews (users_name, book_name, author, review, rating, image) VALUES ($1, $2, $3, $4, $5, $6)`,
+      `INSERT INTO reviews8 (users_name, book_name, author, review, rating, image) VALUES ($1, $2, $3, $4, $5, $6)`,
       [users_name, book_name, author, review, rating, image]
     );
     revalidatePath("/reviews");

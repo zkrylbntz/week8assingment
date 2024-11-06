@@ -7,7 +7,7 @@ import reviewStyles from "@/app/reviews/[id]/reviews.module.css";
 
 export async function generateMetadata({ params }) {
   const reviews = await db.query(
-    `SELECT * FROM reviews WHERE id = ${params.id}`
+    `SELECT * FROM reviews8 WHERE id = ${params.id}`
   );
   const wrangledReviews = reviews;
   // //   const result = await fetch(`https://api.vercel.app/pokemon/${params.id}`);
@@ -25,7 +25,7 @@ export async function generateMetadata({ params }) {
 
 export default async function IdPage({ params }) {
   const reviews = await db.query(
-    `SELECT * FROM reviews WHERE id = ${params.id}`
+    `SELECT * FROM reviews8 WHERE id = ${params.id}`
   );
   const wrangledReviews = reviews.rows;
   // Here I need to get my posts from the db filtering by id (WHERE id = ${params.id})
@@ -38,7 +38,7 @@ export default async function IdPage({ params }) {
     const reviews_id = params.id;
 
     await db.query(
-      `INSERT INTO comments(users_name, comment, rating, reviews_id) VALUES ($1, $2, $3, $4)`,
+      `INSERT INTO comments8(users_name, comment, rating, reviews_id) VALUES ($1, $2, $3, $4)`,
       [users_name, comment, rating, reviews_id]
     );
     revalidatePath(`{/reviews/${params.id}`);
@@ -46,7 +46,7 @@ export default async function IdPage({ params }) {
   }
 
   const comments = await db.query(
-    `SELECT * FROM comments WHERE reviews_id = ${params.id}`
+    `SELECT * FROM comments8 WHERE reviews_id = ${params.id}`
   );
 
   const wrangledComments = comments.rows;
