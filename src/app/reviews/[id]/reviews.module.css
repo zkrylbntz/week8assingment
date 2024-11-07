@@ -1,6 +1,6 @@
-#review_container {
+.review_container {
+  width: 100vw;
   display: flex;
   flex-direction: row;
-  align-content: center;
-  padding: auto;
+  justify-content: center;
 }

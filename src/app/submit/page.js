@@ -66,7 +66,10 @@ export default function Submit() {
           required
         />
         <label htmlFor="review">Review:</label>
-        <input
+        <textarea
+          className="border-2 p-2 border-black"
+          rows={4}
+          cols={40}
           type="textarea"
           name="review"
           id="review"
@@ -75,6 +78,7 @@ export default function Submit() {
         />
         <label htmlFor="rating">Rating:</label>
         <input
+          className="border-2 p-2 border-black"
           type="number"
           name="rating"
           id="rating"
@@ -84,8 +88,18 @@ export default function Submit() {
         />
         <label htmlFor="image">Image URL:</label>
         <input type="text" name="image" id="image" placeholder="Image URL" />
-        <button type="submit">Submit review</button>
+        <button
+          className="border-2 p-2 border-black hover:scale-105 hover:bg-purple-300 hover:text-white"
+          type="submit"
+        >
+          Submit review
+        </button>
       </form>
     </>
   );
+}
+{
+  /* <textarea
+rows={4}
+cols={40} */
 }

@@ -29,14 +29,29 @@ export default async function ReviewsPage({ searchParams }) {
       </div>
       <div>
         <p>Sort by - </p>
-        <Link href="/reviews?sort=asc">Ascending / </Link>
-        <Link href="/reviews?sort=desc">Descending</Link>
+        <Link
+          className="hover:bg-purple-300 hover:text-white"
+          href="/reviews?sort=asc"
+        >
+          Ascending /{" "}
+        </Link>
+        <Link
+          className="hover:bg-purple-300 hover:text-white"
+          href="/reviews?sort=desc"
+        >
+          Descending
+        </Link>
       </div>
       <div className="flex flex-col items-center gap-12">
         {/* Here I need a list of my posts */}
         {wrangledReviews.map((review) => (
           <div key={review.id}>
-            <Link href={`/reviews/${review.id}`}>{review.book_name}</Link>
+            <Link
+              className="hover:bg-purple-300 hover:text-white"
+              href={`/reviews/${review.id}`}
+            >
+              {review.book_name}
+            </Link>
           </div>
         ))}
       </div>

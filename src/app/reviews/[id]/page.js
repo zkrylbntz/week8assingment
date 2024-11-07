@@ -58,64 +58,87 @@ export default async function IdPage({ params }) {
       {/* Here I will display a form with inputs that are connected to the comments table columns in my db */}
       {wrangledReviews.map((review) => (
         <div key={review.id}>
-          <h1 className="text-4xl">{review.book_name}</h1>
-          <h2 className="text-2xl">written by: {review.author}</h2>
-          <h3>reviewed by: {review.users_name}</h3>
-          <div
-            id="review_container"
-            className="flex flex-row w-1/3 items-center m-4"
-          >
-            <p>{review.review}</p>
-
-            <Image
-              className="hover:scale-110"
-              src={review.image}
-              alt=""
-              width={200}
-              height={300}
-            />
+          <h1 className="bg-purple-300 p-2 text-white text-4xl">
+            {review.book_name}
+          </h1>
+          <h2 className="bg-purple-300 p-2 text-white text-2xl">
+            written by: {review.author}
+          </h2>
+          <h3 className="bg-purple-300 p-2 text-white">
+            reviewed by: {review.users_name}
+          </h3>
+          <div className={reviewStyles.review_container}>
+            <div
+              id="review_image"
+              className="flex flex-row w-1/2 items-center m-4"
+            >
+              <div className="flex flex-col">
+                <p>{review.review}</p>
+                <p className="text-2xl mt-4">Rating: {review.rating}</p>
+              </div>
+              <Image
+                className=" m-4 hover:scale-110"
+                src={review.image}
+                alt=""
+                width={200}
+                height={300}
+              />
+              <div className="items-center m-4">
+                <h1>Add a comment</h1>
+                <form
+                  action={handleSubmitComment}
+                  className="flex flex-col items-center justify-items-center"
+                >
+                  <label htmlFor="users_name">Name:</label>
+                  <input
+                    type="text"
+                    name="users_name"
+                    id="users_name"
+                    placeholder="Your name"
+                    required
+                  />
+                  <label htmlFor="comment">Comment:</label>
+                  <textarea
+                    className="border-2 p-2 border-black"
+                    rows={2}
+                    cols={20}
+                    type="text"
+                    name="comment"
+                    id="comment"
+                    placeholder="Your comment"
+                    required
+                  />
+                  <label htmlFor="rating">Rating:</label>
+                  <input
+                    className="border-2 p-2 border-black"
+                    type="number"
+                    name="rating"
+                    id="rating"
+                    required
+                    min={1}
+                    max={10}
+                    width={200}
+                  />
+                  <button
+                    className="border-2 p-2 border-black hover:scale-105 hover:bg-purple-300 hover:text-white"
+                    type="submit"
+                  >
+                    Submit comment
+                  </button>
+                </form>
+              </div>
+            </div>
           </div>
-          <p className="text-2xl">Rating: {review.rating}</p>
         </div>
       ))}
-      <h1>Add a comment</h1>
-      {/* Here I need a form to collect data from the user */}
-      <form action={handleSubmitComment} className="flex flex-col items-center">
-        <label htmlFor="users_name">Name:</label>
-        <input
-          type="text"
-          name="users_name"
-          id="users_name"
-          placeholder="Your name"
-          required
-        />
-        <label htmlFor="comment">Comment:</label>
-        <input
-          type="text"
-          name="comment"
-          id="comment"
-          placeholder="Your comment"
-          required
-        />
-        <label htmlFor="rating">Rating:</label>
-        <input
-          type="number"
-          name="rating"
-          id="rating"
-          required
-          min={1}
-          max={10}
-          width={200}
-        />
-        <button type="submit">Submit comment</button>
-      </form>
+
       <h1>Comments</h1>
 
       {wrangledComments.map((comment) => (
         <div key={comment.id}>
           <h3>reviewed by: {comment.users_name}</h3>
           <p>{comment.comment}</p>
-          <p>{comment.rating}</p>
+          <p>Rating: {comment.rating}</p>
         </div>
       ))}
     </>
