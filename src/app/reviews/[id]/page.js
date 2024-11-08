@@ -6,16 +6,16 @@ import { redirect } from "next/navigation";
 import reviewStyles from "@/app/reviews/[id]/reviews.module.css";
 
 export async function generateMetadata({ params }) {
-  const reviews = await db.query(
-    `SELECT * FROM reviews8 WHERE id = ${params.id}`
+  const myParams = await params;
+
+  const { rows: reviews } = await db.query(
+    `SELECT * FROM reviews8 WHERE id = ${myParams.id}`
   );
-  const wrangledReviews = reviews;
-  // //   const result = await fetch(`https://api.vercel.app/pokemon/${params.id}`);
-  // const review = await result.json();
+  const review = reviews[0];
 
   return {
-    title: `${reviews.book_name} by ${reviews.author}`,
-    description: `This is a book review for ${reviews.book_name} written by ${reviews.author} I hope it inspires you.`,
+    title: `${review.book_name} by ${review.author}`,
+    description: `This is a book review for ${review.book_name} written by ${review.author} I hope it inspires you.`,
   };
 }
 
@@ -50,7 +50,6 @@ export default async function IdPage({ params }) {
   );
 
   const wrangledComments = comments.rows;
-  console.log(wrangledComments);
 
   return (
     <>
@@ -108,7 +107,9 @@ export default async function IdPage({ params }) {
                     placeholder="Your comment"
                     required
                   />
-                  <label htmlFor="rating">Rating:</label>
+                  <label className="p-2" htmlFor="rating">
+                    Rating:
+                  </label>
                   <input
                     className="border-2 p-2 border-black"
                     type="number"
